@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>QR Verification | Lintrix-1121</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin-top: 15%; font-size: 1.5em; background: #f4f6f8; }
+    .expired { color: red; }
+    .valid { color: green; }
+    .meta { font-size: 0.9em; color: #555; margin-top: 1em; }
+  </style>
+</head>
+<body>
+  <h1 id="status">Checking...</h1>
+  <div class="meta" id="details"></div>
+
+  <script>
+    const p = new URLSearchParams(window.location.search);
+    const msg = p.get('msg') || 'natgas.com';
+    const exp = parseInt(p.get('exp'), 10);
+    const date = p.get('date');
+    const now = Date.now();
+
+    const status = document.getElementById('status');
+    const details = document.getElementById('details');
+
+    if (isNaN(exp)) {
+      status.textContent = 'Invalid QR data';
+      status.className = 'expired';
+    } else if (now > exp) {
+      status.textContent = 'Expired';
+      status.className = 'expired';
+    } else {
+      status.textContent = msg;
+      status.className = 'valid';
+    }
+
+    details.innerHTML = `
+      Hosted by: <strong>lintrix-1121.github.io</strong><br>
+      Date: ${new Date(date).toLocaleString()}<br>
+      Expiry: ${new Date(exp).toLocaleString()}
+    `;
+  </script>
+</body>
+</html>
