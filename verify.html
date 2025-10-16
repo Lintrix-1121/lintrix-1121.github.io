@@ -4,14 +4,29 @@
   <meta charset="UTF-8">
   <title>QR Verification | Lintrix-1121</title>
   <style>
-    body { font-family: Arial, sans-serif; text-align: center; margin-top: 15%; font-size: 1.5em; background: #f4f6f8; }
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 15%;
+      font-size: 1.5em;
+      background: #f8f9fa;
+    }
     .expired { color: red; }
     .valid { color: green; }
     .meta { font-size: 0.9em; color: #555; margin-top: 1em; }
+    a {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
   <h1 id="status">Checking...</h1>
+  <div id="extra"></div>
   <div class="meta" id="details"></div>
 
   <script>
@@ -23,6 +38,7 @@
 
     const status = document.getElementById('status');
     const details = document.getElementById('details');
+    const extra = document.getElementById('extra');
 
     if (isNaN(exp)) {
       status.textContent = 'Invalid QR data';
@@ -31,10 +47,15 @@
       status.textContent = 'Expired';
       status.className = 'expired';
     } else {
-      status.textContent = msg;
+      // Replace message with clickable link
+      status.innerHTML = `<a href="https://natgasuganda.com/" target="_blank">https://natgasuganda.com/</a>`;
       status.className = 'valid';
+
+      // Add code below the link
+      extra.innerHTML = `<div style="margin-top: 10px; font-size: 1.2em;">Code: <strong>DT16-10Y2025</strong></div>`;
     }
 
+    // Metadata info
     details.innerHTML = `
       Hosted by: <strong>lintrix-1121.github.io</strong><br>
       Date: ${new Date(date).toLocaleString()}<br>
@@ -43,4 +64,3 @@
   </script>
 </body>
 </html>
-<!-- rebuild trigger -->
